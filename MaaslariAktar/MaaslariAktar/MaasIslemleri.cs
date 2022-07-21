@@ -6,6 +6,7 @@ using Dapper;
 using System.Linq;
 using Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace MaaslariAktar
 {
@@ -19,9 +20,6 @@ namespace MaaslariAktar
             var maaslist = GetMaaslist();
 
             var excellByte = CreateExcell(maaslist);
-
-
-
 
             DeleteGecmisMaaasKayitlari(maaslist);
         }
@@ -40,33 +38,15 @@ namespace MaaslariAktar
 
         private byte[] CreateExcell(List<Maas> maaslist)
         {
-            Microsoft.Office.Interop.Excel.Application xlApp = new
-            Microsoft.Office.Interop.Excel.Application();
-            Workbook xlWorkBook;
-            Worksheet xlWorkSheet;
-            object misValue = System.Reflection.Missing.Value;
-
-            xlWorkBook = xlApp.Workbooks.Add(misValue);
-            xlWorkSheet = (Worksheet)xlWorkBook.Worksheets.get_Item(1);
-            foreach (var item in maaslist)
-            {
-                for (int i = 0; i <= maaslist.Count; i++)
-                {
-                    xlWorkSheet.Cells[i, 1] = item.TC;
-                    xlWorkSheet.Cells[i, 2] = item.AdSoyad;
-                    xlWorkSheet.Cells[i, 3] = item.YapilanOdeme;
-                    xlWorkSheet.Cells[i, 4] = item.KesilenHaciz;
-                    xlWorkSheet.Cells[i, 5] = item.KesilenAvans;
-                    xlWorkSheet.Cells[i, 6] = item.EkKesinti;
-                }
-                
-            }
-            xlWorkBook.SaveAs("c:\\maas.xlsx", XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
-            xlWorkBook.Close(true, misValue, misValue);
-            xlApp.Quit();
-            Marshal.ReleaseComObject(xlWorkSheet);
-            Marshal.ReleaseComObject(xlWorkBook);
-            Marshal.ReleaseComObject(xlApp);
+            string dosya_yolu = @"C:\Users\Osman\Desktop\Maaas1.txt";
+            FileStream fs = new FileStream(dosya_yolu, FileMode.OpenOrCreate, FileAccess.Write);
+            StreamWriter sw = new StreamWriter(fs);
+            
+            sw.WriteLine("1.Satır:Merhaba");
+            sw.WriteLine("2.Satır:Dünya");
+            sw.Flush();
+            sw.Close();
+            fs.Close();
 
             return null;
         }

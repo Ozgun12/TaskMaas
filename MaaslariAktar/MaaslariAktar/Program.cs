@@ -10,8 +10,7 @@ namespace MaaslariAktar
         {
             var massıslemleri = new MaasIslemleri();
             massıslemleri.Run();
-            Console.WriteLine("Büyük Özgün");
-            Console.ReadLine();
+
         }
     }
 }

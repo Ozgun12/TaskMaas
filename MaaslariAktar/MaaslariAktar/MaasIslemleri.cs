@@ -42,11 +42,6 @@ namespace MaaslariAktar
             FileStream fs = new FileStream(dosya_yolu, FileMode.OpenOrCreate, FileAccess.Write);
             StreamWriter sw = new StreamWriter(fs);
             
-            sw.WriteLine("1.Satır:Merhaba");
-            sw.WriteLine("2.Satır:Dünya");
-            sw.Flush();
-            sw.Close();
-            fs.Close();
 
             return null;
         }
